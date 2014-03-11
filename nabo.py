@@ -2,7 +2,7 @@
 #============================================================
 #
 # Nabo
-# API for Naver blog read
+# Naver blog Parser
 #
 # 2014, XKY
 # License: LGPL v3
