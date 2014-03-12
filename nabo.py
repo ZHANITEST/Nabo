@@ -14,14 +14,21 @@ sys.setdefaultencoding("UTF-8")
 import urllib2
 import re
 
+#============================================================
+# class: NaboError
+#============================================================
 class NaboError(Exception):pass
 
-class nabo:
+#============================================================
+# class: nabo
+#============================================================
+class Nabo:
 	def __init__(self, username):
 		# 블로그 데이터 정의
 		self.DATA = {
 			"USER_ID"	:	username,
-			"BLOG_URL"	:	"http://blog.naver.com/"+ username
+			"BLOG_URL"	:	"http://blog.naver.com/"+ username,
+			"POST_BODY"	: None 
 		}
 
 
@@ -48,14 +55,28 @@ class nabo:
 		
 		self.DATA["POST_FRAMEURL"] = "http://blog.naver.com/PostView.nhn?blogId="+ userid +"&logNo="+ self.DATA["POST_ID"] + "&redirect=Dlog&widgetTypeCall=true"
 		
-		
+		# HTML 리퀘스트 요청
 		req = urllib2.Request( self.DATA["POST_FRAMEURL"] )
 		html = urllib2.urlopen( req ).read()
 		
-		self.DATA["POST_TITLE"] = re.search( "<title>(.+):", html ).group(1)
+		# 패턴 람다식
+		search = ( lambda x,y : re.search(x, y).group(1) )
+
+
+		
+		# 날짜 읽기
+		#\d{4}/\d{2}/\d{2} .+:\d\d
+		self.DATA["POST_DATE"] = search( "(\d{4}/\d{2}/\d{2} .+:\d\d)", html)
+		
+		# 제목 읽기
+		#self.DATA["POST_TITLE"] = re.search( "<title>(.+):", html ).group(1)
+		self.DATA["POST_TITLE"] = search( "<title>(.+):", html )
+		
+		#본문 읽기
+		#post-view[\d]+" .+">[\s]+(<p>.+)</div>
+		self.DATA["POST_BODY"] = search( "post-view[\d]+\" .+\">[\s]+(<p>.+)</div>", html )
 		
 	
-	def getHtml(self):
-		req = urllib2.Request( self.DATA["POST_FRAMEURL"] )
-		html = urllib2.urlopen( req ).read()
-		return html
+	def getIMGs(self):
+		lobj = re.search( "(http://[\w\s\d./_-]+.type=w2)", self.DATA["POST_BODY"] ).groups()
+		return lobj
