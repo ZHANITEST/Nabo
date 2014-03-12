@@ -34,6 +34,7 @@ img_urls = mypost.getIMGs()
 Loadmap
 ====
 * Replace HTML code
+* Port to other languages
 
 
 
