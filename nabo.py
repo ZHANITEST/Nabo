@@ -73,8 +73,9 @@ class Nabo:
 		self.DATA["POST_TITLE"] = search( "<title>(.+):", html )
 		
 		#본문 읽기
-		#post-view[\d]+" .+">[\s]+(<p>.+)</div>
-		self.DATA["POST_BODY"] = search( "post-view[\d]+\" .+\">[\s]+(<p>.+)</div>", html )
+		# r0: post-view[\d]+" .+">[\s]+(<p>.+)</div>
+		# r1: post-view[\d]+\" .+\">[\s]+(.+)</div>
+		self.DATA["POST_BODY"] = search( "post-view[\d]+\" .+\">[\s]+(.+)</div>", html )
 		
 	
 	def getIMGs(self):
