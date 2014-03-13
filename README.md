@@ -24,9 +24,13 @@ print mypost.DATA["POST_DATE"]
 # 글 본문(html)
 print mypost.DATA["POST_BODY"]
 
-# 본문에 삽입된 이미지 주소들( tuple getIMGs(void) )
-img_urls = mypost.getIMGs()
 
+
+# 파일로 저장 / void fopen( string filename )
+mypost.fopen( "파일이름.txt" )
+
+# 본문에 삽입된 이미지 주소들 / tuple getIMGs( void )
+img_urls = mypost.getIMGs()
 ```
 
 
