@@ -4,6 +4,8 @@ Nabo
 
 "<아이디>.blog.me"와 "blog.naver.com/<아이디>" 도메인을 지원합니다.
 
+현재 PC에서 작성한 글만 파싱이 가능합니다.
+
 
 
 Example
@@ -37,8 +39,9 @@ img_urls = mypost.getIMGs()
 
 Loadmap
 ====
+* Support parsing a post by mobile
+* Return object(video, swf, etc..) urls
 * Replace HTML code
-* Port to other languages
 
 
 
