@@ -111,8 +111,3 @@ class Nabo:
 			req = urllib2.Request( "http://blog.naver.com/PostView.nhn?blogId="+ userid +"&logNo="+ self.DATA["POST_ID"] + "&redirect=Dlog&widgetTypeCall=true" )
 			html = urllib2.urlopen( req ).read()
 			return html
-a = Nabo("despair4045")
-a.open("http://despair4045.blog.me/90191809247")
-
-from pprint import pprint
-pprint( a.DATA )
