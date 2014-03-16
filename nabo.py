@@ -64,16 +64,18 @@ class Nabo:
 		
 		# 날짜 읽기
 		# r1: (\d{4}/\d{2}/\d{2} .+:\d\d)
+		# r2: _postAddDate">(.+)<
 		
 		# 제목 읽기
 		# r1: "<title>(.+):"
+		# r2: <span[\s]class="pcol1[\s]itemSubjectBoldfont">(.+)</span>
 		
 		#
 		# 날짜, 제목 파싱 시작
 		#
 		obj = None
 		data_ids = [ "POST_TITLE", "POST_DATE" ]
-		data_pattens = [ "<title>(.+)", "(\d{4}/\d{2}/\d{2} .+:\d\d)" ]
+		data_pattens = [ "<span[\s]class="pcol1[\s]itemSubjectBoldfont">(.+)</span>)", "_postAddDate\">(.+)<" ]
 		for x in range(0,1):
 			obj = re.search( data_pattens[x], html )					# 검색
 			if( obj == None ):									# 발견할 수 없다면 False를 리턴
