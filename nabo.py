@@ -26,11 +26,12 @@ class Nabo:
 	def __init__(self, username):
 		# 블로그 데이터 정의
 		self.DATA = {
-			"USER_ID"	:	username,
-			"BLOG_URL"	:	"http://blog.naver.com/"+ username,
+			"USER_ID"		:	username,
+			"BLOG_URL"		:	"http://blog.naver.com/"+ username,
 			"POST_TITLE"	: None, 
-			"POST_DATE"	: None, 
-			"POST_BODY"	: None 
+			"POST_DATE"		: None, 
+			"POST_BODY"		: None,
+			"POST_ID"		: None
 		}
 	#===================================================================================================
 	# open: 리퀘스트 + 파싱 + 반영
@@ -75,7 +76,7 @@ class Nabo:
 		#
 		obj = None
 		data_ids = [ "POST_TITLE", "POST_DATE" ]
-		data_pattens = [ "<span[\s]class="pcol1[\s]itemSubjectBoldfont">(.+)</span>)", "_postAddDate\">(.+)<" ]
+		data_pattens = [ """<span[\s]class="pcol1[\s]itemSubjectBoldfont">(.+)</span>)", "_postAddDate\">(.+)<""" ]
 		for x in range(0,1):
 			obj = re.search( data_pattens[x], html )					# 검색
 			if( obj == None ):									# 발견할 수 없다면 False를 리턴
