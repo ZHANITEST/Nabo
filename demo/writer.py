@@ -1,34 +1,30 @@
+#-*- coding:UTF-8 -*-
 #===================================================================================================
 #
 # demo/writer.py
 # parsing post, write json file.
 #
 #===================================================================================================
-import os, json
+import os
 os.chdir("..")
 import nabo
 
 
 # username
-username = ""
+username = "despair4045"
 
 # post url
-posturl = ""
+posturl = "http://despair4045.blog.me/90192573172"
 
 # write body file?
 b_body = True;
 
 # download images?
 b_imgs = True;
-downloadpath = "./imgs"
+downloadpath = "/imgs"
 
 
 
-post_obj = {
-	"title":None,
-	"body":None,
-	"date":None
-}
 
 
 
@@ -38,16 +34,19 @@ if __name__ == "__main__":
 	post = nabo.Nabo( username )
 	post.open( posturl )
 
+	postid = post.DATA["POST_ID"]
+	
 	if( b_body == True ):
-		f = open( post.DATA["POST_ID"]+".json", "w" )
-		f.write( post.DATA["POST_BODY"] )
-		f.close()
+		# file object
+		f = ( lambda fname,body:open(fname,"w").write(body) )
+		
+		# make directory	
+		if( os.path.isdir(postid) == False ) :
+			os.mkdir( postid )
+		
+		f( postid+"/title.txt", post.DATA["POST_TITLE"] )
+		f( postid+"/body.txt", post.DATA["POST_BODY"] )
 	
 	if( b_imgs == True ):
-		if( os.isdir(downloadpath) != True ):
-			os.mkdir( downloadpath )
-		
-		imgs = post.getIMGs()
-		
-		for n in range( 0, len(imgs) ):
-			try:
+		urls = post.getIMGs()
+		print urls
