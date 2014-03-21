@@ -102,8 +102,14 @@ class Nabo:
 		if self.DATA["POST_BODY"] == None:
 			raise NaboError, "You must parsing first."
 		else:
-			lobj = re.search( "(http://[\w\s\d./_-]+.type=w2)", self.DATA["POST_BODY"] ).groups()
-			return lobj
+			lobj = re.search( "(http://[\w\s\d./_-]+.type=w2)", self.DATA["POST_BODY"] )
+			
+			# 이미지 주소가 없다면
+			if( bool(lobj) == False ):
+				return None
+			else:
+				lobj = lobj.groups()
+				return lobj
 	#===================================================================================================
 	# callRequest: 직접 리퀘스트 + 호출
 	#===================================================================================================
