@@ -11,10 +11,10 @@ import nabo
 
 
 # username
-username = "despair4045"
+username = raw_input("id: ")
 
 # post url
-posturl = "http://despair4045.blog.me/90192573172"
+posturl = raw_input("post url: ")
 
 # write body file?
 b_body = True;
