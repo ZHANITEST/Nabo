@@ -1,0 +1,1 @@
+cp nabo.py ./demo
