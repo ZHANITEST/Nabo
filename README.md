@@ -18,7 +18,8 @@ mypost.open( "글 주소" )
 
 print mypost.DATA["naver"]["title"] # 글 제목
 print mypost.DATA["naver"]["date"]  # 작성 날짜
-print mypost.DATA["naver"]["body"]  # 글 본문(html)```
+print mypost.DATA["naver"]["body"]  # 글 본문(html)
+```
 
 
 
