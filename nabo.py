@@ -147,4 +147,9 @@ class Nabo:
 #===================================================================================================
 class Conv:
 	def __init__(self):
-		self.o = self
+		self.o = self["naver"]["body"]
+	
+	# 자동으로 html 코드 정리
+	def autoclean(self):
+		self.o = self.o.replace("<p>", "")
+		self.o = self.o.replace("</p>", "")
