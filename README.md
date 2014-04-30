@@ -16,11 +16,10 @@ from nabo import Nabo
 mypost = Nabo( "아이디" )
 mypost.open( "글 주소" )
 
-print mypost.DATA["POST_TITLE"] # 글 제목
-print mypost.DATA["POST_DATE"] # 작성 날짜
-print mypost.DATA["POST_BODY"] # 글 본문(html)
+print mypost.DATA["naver"]["title"] # 글 제목
+print mypost.DATA["naver"]["date"]  # 작성 날짜
+print mypost.DATA["naver"]["body"]  # 글 본문(html)
 
-img_urls = mypost.getIMGs() # 본문의 이미지 주소들: tuple getIMGs( void )
 ```
 
 
