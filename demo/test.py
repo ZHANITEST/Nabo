@@ -5,7 +5,8 @@
 # License: LGPL v3
 #
 #===================================================================================================
-from nabo import Nabo
+from nabo import Nabo #Parser
+from nabo import Conv #HTML code processor
 from pprint import pprint
 
 if __name__ == "__main__":
@@ -13,5 +14,8 @@ if __name__ == "__main__":
 	test = Nabo("blogpeople")
 	test.open("http://blogpeople.blog.me/150181071013")
 	
-	print "title:", test.DATA["POST_TITLE"]
-	print "date :", test.DATA["POST_DATE"]
+	print "title:", test.DATA["naver"]["title"]
+	print "date :", test.DATA["naver"]["date"]
+	
+	html_body = Conv( test.DATA )
+	html_body.autoclean()
