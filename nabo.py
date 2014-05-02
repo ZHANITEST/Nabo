@@ -71,7 +71,7 @@ class Nabo:
 				raise NaboError, "Can't found post id"
 		
 		# HTML 리퀘스트 요청
-		req = urllib2.Request( "http://blog.naver.com/PostView.nhn?blogId="+ userid +"&logNo="+ self.DATA["POST_ID"] + "&redirect=Dlog&widgetTypeCall=true" )
+		req = urllib2.Request( "http://blog.naver.com/PostView.nhn?blogId="+ userid +"&logNo="+ self.DATA["naver"]["num"] + "&redirect=Dlog&widgetTypeCall=true" )
 		html = urllib2.urlopen( req ).read()
 
 		#
