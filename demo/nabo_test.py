@@ -1,6 +1,6 @@
 #===================================================================================================
 #
-# test.py (for Nabo)
+# nabo_test.py (for Nabo)
 # 2014, XKY
 # License: LGPL v3
 #
@@ -16,6 +16,3 @@ if __name__ == "__main__":
 	
 	print "title:", test.DATA["naver"]["title"]
 	print "date :", test.DATA["naver"]["date"]
-	
-	html_body = Conv( test.DATA )
-	html_body.autoclean()
