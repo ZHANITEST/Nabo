@@ -20,7 +20,6 @@ ls
 
 Example
 ====
-See '/demo/test.py'.
 ```
 #-*- coding:UTF-8 -*-
 from nabo import Nabo
