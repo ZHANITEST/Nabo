@@ -24,6 +24,9 @@ class NaboError(Exception):pass
 # Parser class
 #===================================================================================================
 class Nabo:
+	#===================================================================================================
+	# __init__: 생성자
+	#===================================================================================================
 	def __init__(self, username):
 		# 블로그 데이터 정의
 		# 정의 v2
@@ -31,21 +34,12 @@ class Nabo:
 			"naver":{
 				"username"	:	username,
 				"host"			:	"http://blog.naver.com/"+ username,
-				"title"		:	None,
+				"title"			:	None,
 				"body"			:	None,
 				"date"			:	None,
 				"num"			:	None
 			}
 		}
-		'''
-		self.DATA = {
-			"USER_ID"		:	username,
-			"BLOG_URL"		:	"http://blog.naver.com/"+ username,
-			"POST_TITLE"	: None, 
-			"POST_DATE"		: None, 
-			"POST_BODY"		: None,
-			"POST_ID"		: None
-		}'''
 	#===================================================================================================
 	# open: 리퀘스트 + 파싱 + 반영
 	#===================================================================================================
@@ -71,7 +65,11 @@ class Nabo:
 				raise NaboError, "Can't found post id"
 		
 		# HTML 리퀘스트 요청
-		req = urllib2.Request( "http://blog.naver.com/PostView.nhn?blogId="+ userid +"&logNo="+ self.DATA["naver"]["num"] + "&redirect=Dlog&widgetTypeCall=true" )
+		hedr = { "User-Agent" : "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)" }
+		req = urllib2.Request(
+			url = "http://blog.naver.com/PostView.nhn?blogId="+ userid +"&logNo="+ self.DATA["naver"]["num"] + "&redirect=Dlog&widgetTypeCall=true",
+			header = hedr
+		)
 		html = urllib2.urlopen( req ).read()
 
 		#
@@ -158,9 +156,18 @@ class Conv:
 	def autoclean(self):
 		# <p> 여는 태그 제거
 		self.body = self.body.replace("<p>", "") 
-		self.body = re.sub("<p .+\">", "", self.body)
-		# </p> 닫는 태그 제거
-		self.body = self.body.replace("</p>", "<br>")
+		#self.body = re.sub("(<p .+>).+</p>", "", self.body)
+		
+		# 문제가 되는 태그 검색&제거( <p>, <span> 포함 )
+		m = re.search( "(<p .+>).+</p>", self.body )
+		for s in m:
+			self.body = self.body.replace( s , "" )
+
+		# 닫는 태그 제거
+		self.body = self.body.replace( "</p>", "" )
+		self.body = self.body.replace( "</span>", "" )
+		self.body = self.body.replace("&nbsp;", "<br>")
+
 	#===================================================================================================
 	# commit: 적용
 	#===================================================================================================
