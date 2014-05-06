@@ -12,6 +12,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding("UTF-8")
 import urllib2
+import urllib
 import re
 
 #===================================================================================================
@@ -27,9 +28,12 @@ class Nabo:
 	#===================================================================================================
 	# __init__: 생성자
 	#===================================================================================================
-	def __init__(self, username):
+	def __init__( self, username ):
 		# 블로그 데이터 정의
 		# 정의 v2
+		self.header = { "User-Agent" : "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)" }
+		self.sdic = { "id":username, "pw":None }
+		self.encode = None
 		self.DATA = {
 			"naver":{
 				"username"	:	username,
@@ -40,6 +44,17 @@ class Nabo:
 				"num"			:	None
 			}
 		}
+	#===================================================================================================
+	# login: 로그인 데이터 작성
+	#===================================================================================================
+	def login( self, password ):
+		self.sdic["pw"] = password
+		self.encode = urllib.urlencode( self.sdic )
+		self.lreq = urllib2.Request(
+			url = "https://nid.naver.com/nidlogin.login",
+			data = self.encode
+		)
+		self.accout = urllib2.urlopen( self.lreq )
 	#===================================================================================================
 	# open: 리퀘스트 + 파싱 + 반영
 	#===================================================================================================
@@ -64,11 +79,10 @@ class Nabo:
 			else:
 				raise NaboError, "Can't found post id"
 		
-		# HTML 리퀘스트 요청
-		hedr = { "User-Agent" : "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)" }
+		# 리퀘스트용 헤더 작성
 		req = urllib2.Request(
 			url = "http://blog.naver.com/PostView.nhn?blogId="+ userid +"&logNo="+ self.DATA["naver"]["num"] + "&redirect=Dlog&widgetTypeCall=true",
-			header = hedr
+			header = self.header
 		)
 		html = urllib2.urlopen( req ).read()
 
