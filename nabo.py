@@ -82,7 +82,7 @@ class Nabo:
 		# 리퀘스트용 헤더 작성
 		req = urllib2.Request(
 			url = "http://blog.naver.com/PostView.nhn?blogId="+ userid +"&logNo="+ self.DATA["naver"]["num"] + "&redirect=Dlog&widgetTypeCall=true",
-			header = self.header
+			headers = self.header
 		)
 		html = urllib2.urlopen( req ).read()
 
