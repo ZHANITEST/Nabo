@@ -12,7 +12,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding("UTF-8")
 import urllib2
-import urllib
+#import urllib
 import re
 
 #===================================================================================================
@@ -45,8 +45,9 @@ class Nabo:
 			}
 		}
 	#===================================================================================================
-	# login: 로그인 데이터 작성
+	# [x] login: 로그인 데이터 작성
 	#===================================================================================================
+	'''
 	def login( self, password ):
 		self.sdic["pw"] = password
 		self.encode = urllib.urlencode( self.sdic )
@@ -54,7 +55,7 @@ class Nabo:
 			url = "https://nid.naver.com/nidlogin.login",
 			data = self.encode
 		)
-		self.accout = urllib2.urlopen( self.lreq )
+		self.accout = urllib2.urlopen( self.lreq )'''
 	#===================================================================================================
 	# open: 리퀘스트 + 파싱 + 반영
 	#===================================================================================================
