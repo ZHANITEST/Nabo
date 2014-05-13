@@ -42,7 +42,7 @@ Loadmap
 * Return binary object(file, video, swf, etc..) urls
 * Clean HTML code
 * Fix 'UnicodeDecodeError'
-* Port to Python3
+* Porting to Python3
 
 
 
