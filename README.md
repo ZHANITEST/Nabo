@@ -1,8 +1,9 @@
 Nabo
 ====
-파이썬 표준 라이브러리로 작성한 네이버 블로그 포스트 파서입니다.
+파이썬2 표준 라이브러리로 작성한 네이버 블로그 포스트 파서입니다.
 * "<아이디>.blog.me"와 "blog.naver.com/<아이디>" 도메인 지원
 * '전체공개' 되어있는 글만 파싱 가능
+* 파이썬3로 포팅할 예정입니다. 조금만 기달려주세요. :)
 
 
 
@@ -20,6 +21,7 @@ ls
 
 Example
 ====
+API Reference: https://github.com/XKY/Nabo/wiki/Reference
 ```
 #-*- coding:UTF-8 -*-
 from nabo import Nabo
@@ -39,6 +41,8 @@ Loadmap
 * Using login session
 * Return binary object(file, video, swf, etc..) urls
 * Clean HTML code
+* Fix 'UnicodeDecodeError'
+* Port to Python3
 
 
 
