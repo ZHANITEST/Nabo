@@ -1,3 +1,4 @@
+#-*- coding:UTF-8 -*-
 #===================================================================================================
 #
 # login_test.py (for Nabo)
@@ -13,4 +14,4 @@ if __name__ == "__main__":
 	id = raw_input( "Your id: ")
 	pw = raw_input( "Your pw: ")
 	test = Nabo( id )
-	test.login( pw )
+	test.login( id, pw )
