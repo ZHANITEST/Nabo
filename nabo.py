@@ -1,19 +1,17 @@
-# -*- coding:UTF-8 -*-
+#-*- coding:UTF-8 -*-
 #===================================================================================================
 #
-# Nabo
-# Naver blog Parser
+# [     Nabo     ]
+# Parser for Naverblog post.
+# https://github.com/xky/Nabo
 #
 # 2014, XKY
 # License: LGPL v3
 #
 #===================================================================================================
-import sys
-reload(sys)
-sys.setdefaultencoding("UTF-8")
-import urllib2
-#import urllib
-import re
+import sys; reload(sys); sys.setdefaultencoding("UTF-8")
+import urllib2, urllib, cookielib
+import re, json
 
 #===================================================================================================
 # class: NaboError
@@ -29,11 +27,18 @@ class Nabo:
 	# __init__: 생성자
 	#===================================================================================================
 	def __init__( self, username ):
+	#def __init__( self, username, password ):
 		# 블로그 데이터 정의
 		# 정의 v2
+		'''
+		# 로그인 시도
+		if( (username) && (password) ):
+			result = login( username, password )
+			if ( result[1] == True ):
+				pass
+		'''
+		# 공용 헤더
 		self.header = { "User-Agent" : "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)" }
-		self.sdic = { "id":username, "pw":None }
-		self.encode = None
 		self.DATA = {
 			"naver":{
 				"username"	:	username,
@@ -45,17 +50,29 @@ class Nabo:
 			}
 		}
 	#===================================================================================================
-	# [x] login: 로그인 데이터 작성
+	# [구현중] login: 로그인 데이터 작성
 	#===================================================================================================
-	'''
-	def login( self, password ):
-		self.sdic["pw"] = password
-		self.encode = urllib.urlencode( self.sdic )
-		self.lreq = urllib2.Request(
-			url = "https://nid.naver.com/nidlogin.login",
-			data = self.encode
-		)
-		self.accout = urllib2.urlopen( self.lreq )'''
+	def login( self, username, password, redirect_url="" ):
+		# 쿠키
+		cookie = cookielib.CookieJar()
+		
+		# POST로 전송될 값들의 정의
+		login_form = urllib.urlencode({
+			"id":username,
+			"pw":password,
+			"enctp":1,
+			"locale":"ko_KR",
+			"url":redirect_url
+		})
+		
+		
+		session = urllib2.build_opener( urllib2.HTTPCookieProcessor(cookie) )
+		
+		# 로그인 요청
+		session.open("https://nid.naver.com/nidlogin.login", session, headers = self.header )
+		
+		# 미구현이므로 False
+		return False
 	#===================================================================================================
 	# open: 리퀘스트 + 파싱 + 반영
 	#===================================================================================================
@@ -140,6 +157,12 @@ class Nabo:
 			f.close()
 			return True
 	#===================================================================================================
+	# getJson: self.DATA의 내용을 Josn형식의 문자열로 리턴
+	#===================================================================================================
+	def getJson(self):
+		result = json.dumps( self.DATA )
+		return result
+	#===================================================================================================
 	# callRequest: 직접 리퀘스트 + 호출
 	#===================================================================================================
 	def callRequest(self):
@@ -149,6 +172,17 @@ class Nabo:
 			req = urllib2.Request( "http://blog.naver.com/PostView.nhn?blogId="+ userid +"&logNo="+ self.DATA["naver"]["POST_ID"] + "&redirect=Dlog&widgetTypeCall=true" )
 			html = urllib2.urlopen( req ).read()
 			return html
+	#===================================================================================================
+	# showType: 유니코드 에러를 위한 디버깅용 함수.
+	#===================================================================================================
+	def showType( self, data_key="title" ):
+		print type( self.DATA["naver"][data_key] )
+	#===================================================================================================
+	# toUni: 유니코드 에러를 위한 디버깅용 함수.
+	#===================================================================================================
+	def toUni( self, data_key="title" ):
+		return self.DATA["naver"][data_key].encode('utf-8')
+
 
 
 
