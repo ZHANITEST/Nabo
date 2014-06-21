@@ -7,18 +7,6 @@ Nabo
 
 
 
-Demo
-====
-```
-git clone https://github.com/xky/nabo.git
-cd nabo
-./copy.sh
-cd demo
-ls
-```
-
-
-
 Example
 ====
 API Reference: https://github.com/XKY/Nabo/wiki/Reference
