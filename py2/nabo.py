@@ -87,7 +87,7 @@ class Nabo:
 		# blog.naver.com 패턴일 때
 		rep = re.match( "http://blog.naver.com/"+userid+"/(\d+)", url )
 		if rep != None:
-			self.DATA["naber"]["num"] = rep.group(1)
+			self.DATA["naver"]["num"] = rep.group(1)
 		
 		# blog.me 패턴일 때
 		elif rep == None:
